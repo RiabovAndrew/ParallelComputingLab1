@@ -1,0 +1,3 @@
+﻿  Source.c
+P:\С\ParallelComputingLab1\Source.c(44,18): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
+  ParallelComputingLab1.vcxproj -> P:\С\ParallelComputingLab1\Debug\ParallelComputingLab1.exe

@@ -1,0 +1,2 @@
+P:\С\ParallelComputingLab1\Debug\ParallelComputingLab1.exe
+P:\С\ParallelComputingLab1\Debug\ParallelComputingLab1.pdb
