@@ -1,0 +1,2 @@
+P:\GitHub\ParallelComputingLab1\x64\Debug\ParallelComputingLab1.exe
+P:\GitHub\ParallelComputingLab1\x64\Debug\ParallelComputingLab1.pdb
