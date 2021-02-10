@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <omp.h>
 #include <time.h>
+#include <math.h>
 
-#define MY_ARRAY_LENGTH 67108864
+#define MY_ARRAY_LENGTH 536870912
 #define MY_ARRAY_LENGTH_FOR_GIGABYTE 67108864
+//#define ADDICTION_CALCULATION
 
-#define TICK(X) clock_t X = clock()
-#define TOCK(X) printf("time %s: %g sec.\n", (#X), (double)(clock() - (X)) / CLOCKS_PER_SEC)
 
 double scalar(const double* a, const double* b) {
 	double sum = 0;
@@ -22,7 +22,11 @@ double scalar_threads(const double* a, const double* b, const int threads) {
 	int i;
 	#pragma omp parallel for shared(a, b) reduction (+: sum) private(i) num_threads(threads)
 		for (i = 0; i < MY_ARRAY_LENGTH; i++) {
-			sum += a[i] * b[i];
+			#ifdef ADDICTION_CALCULATION
+				sum += sqrt(sqrt(sqrt(a[i] * powf(b[i], 30))));
+			#else
+				sum += a[i] * b[i];
+			#endif
 		}
 	return sum;
 }
@@ -43,39 +47,17 @@ int main(void) {
 
 	srand(time(NULL));
 
-	TICK(TIME_array_initialiser);
+	double start = omp_get_wtime();
 	double* a = array_initialiser();
 	double* b = array_initialiser();
-	TOCK(TIME_array_initialiser);
+	printf("array_initialiser; 8 threads; time: %f sec\n", (omp_get_wtime() - start));
 
-	TICK(TIME_scalar_threads1);
-	printf("scalar = %f\n", scalar_threads(a, b, 1));
-	TOCK(TIME_scalar_threads1);
-
-	TICK(TIME_scalar_threads2);
-	printf("scalar = %f\n", scalar_threads(a, b, 2));
-	TOCK(TIME_scalar_threads2);
-
-	TICK(TIME_scalar_threads4);
-	printf("scalar = %f\n", scalar_threads(a, b, 4));
-	TOCK(TIME_scalar_threads4);
-
-	TICK(TIME_scalar_threads8);
-	printf("scalar = %f\n", scalar_threads(a, b, 8));
-	TOCK(TIME_scalar_threads8);
-
-	TICK(TIME_scalar_threads10);
-	printf("scalar = %f\n", scalar_threads(a, b, 10));
-	TOCK(TIME_scalar_threads10);
-
-	TICK(TIME_scalar_threads12);
-	printf("scalar = %f\n", scalar_threads(a, b, 12));
-	TOCK(TIME_scalar_threads12);
-
-	TICK(TIME_scalar_threads16);
-	printf("scalar = %f\n", scalar_threads(a, b, 16));
-	TOCK(TIME_scalar_threads16);
-
+	for (size_t i = (size_t)1; i <= 16; i += 2) {
+		start = omp_get_wtime();
+		printf("scalar = %f\n", scalar_threads(a, b, i));
+		printf("%zu thread(s); time: %f sec\n", i, (omp_get_wtime() - start));
+		if (i == 1) i--;
+	}
 
 	free(a);
 	free(b);
