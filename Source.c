@@ -6,7 +6,7 @@
 
 #define MY_ARRAY_LENGTH 536870912
 #define MY_ARRAY_LENGTH_FOR_GIGABYTE 67108864
-//#define ADDICTION_CALCULATION
+#define ADDICTION_CALCULATION
 
 
 double scalar(const double* a, const double* b) {

@@ -1,4 +1,5 @@
 ﻿  Source.c
+P:\GitHub\ParallelComputingLab1\Source.c(26,43): warning C4244: функция: преобразование "const double" в "float", возможна потеря данных
 P:\GitHub\ParallelComputingLab1\Source.c(48,18): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
 P:\GitHub\ParallelComputingLab1\Source.c(57,49): warning C4267: функция: преобразование из "size_t" в "const int"; возможна потеря данных
   ParallelComputingLab1.vcxproj -> P:\GitHub\ParallelComputingLab1\x64\Debug\ParallelComputingLab1.exe
